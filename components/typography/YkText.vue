@@ -1,5 +1,5 @@
 <template>
-    <span :class="[type, { 'strong': b, 'mark': mark, 'underline': underline,'delete':del }]" class="yk-text">
+    <span :class="[type, { 'strong': b, 'mark': mark, 'underline': underline, 'delete': del }]" class="yk-text">
         <slot>
         </slot>
     </span>
@@ -33,18 +33,24 @@ const props = defineProps({
 </script>
 <style lang="less" scoped>
 @import '../../assets/style/yk-index.less';
-.pcolor{
+
+.default {
+    color: @font-color-l;
+}
+
+.primary {
     color: @pcolor;
 }
-.primary{
-  color:@font-color-l;
-}
+
 .secondary {
     color: @font-color-m;
 }
+.third {
+    color: @font-color-s;
+}
 
 .disabled {
-    color: @font-color-s;
+    color: @font-color-ss;
 }
 
 .success {
@@ -64,7 +70,7 @@ const props = defineProps({
 }
 
 .mark {
-    background-color: rgba(255,214,28,0.48);
+    background-color: rgba(255, 214, 28, 0.48);
 }
 
 .underline {
@@ -72,7 +78,6 @@ const props = defineProps({
 }
 
 .delete {
-    text-decoration:line-through;
+    text-decoration: line-through;
 }
-
 </style>

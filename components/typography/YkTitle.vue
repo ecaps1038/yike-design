@@ -11,9 +11,9 @@ import {ref} from "vue";
       type:Number,
       default:1,
     },
-    type:{
+    type:{//default,primary,secondary,success,warning,danger
       type:String,
-      default:'',
+      default:'default',
     }
   })
 
@@ -46,14 +46,14 @@ import {ref} from "vue";
   font-size: 16px;
   line-height:1.5;
 }
-.pcolor{
-  color:@pcolor;
-}
-.primary{
+.default{
   color:@font-color-l;
 }
+.primary{
+  color:@pcolor;
+}
 .secondary{
-  color:@font-color-s;
+  color:@font-color-m;
 }
 .success{
   color:@scolor;

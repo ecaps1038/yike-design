@@ -2,9 +2,9 @@
   <div class="yk-paragraph">
     <p :class="[type, { strong: b }]" ref="getDivRef">
       <slot> </slot>
-      <ykIcon @click="tryCopys" name="yk-kaobei" v-show="copyable"/>
+      <ykIcon @click="tryCopys" name="yk-kaobei" v-show="copyable" />
     </p>
-    <div class="more" @click="getMore" v-show="ismore && ellipsis">展开</div>
+    <div class="more" @click="getMore" v-show="ismore">展开</div>
   </div>
 </template>
 <script setup lang="ts">
@@ -23,12 +23,12 @@ const props = defineProps({
     default: "",
   },
   ellipsis: {//是否多行隐藏
-    type: [Boolean, Object],
-    default: false,
+    type: [Object],
+    default: { rows: '', showMore: false },
   },
-  copyable:{
-    type:Boolean,
-    default:false,
+  copyable: {
+    type: Boolean,
+    default: false,
   }
 });
 
@@ -42,43 +42,43 @@ const moreline = (rows: number) => {
   let lines = 2;
   if (rows) {
     lines = rows;
-  }
-  let boxid: any = getDivRef.value;
-  // console.log(getDivRef);
-  //js获取元素所有样式
-  let computedStyle = getComputedStyle(boxid);
-  let lineHeight = computedStyle.lineHeight;
+    let boxid: any = getDivRef.value;
+    // console.log(getDivRef);
+    //js获取元素所有样式
+    let computedStyle = getComputedStyle(boxid);
+    let lineHeight = computedStyle.lineHeight;
 
-  let top = lines * parseInt(lineHeight);
+    let top = lines * parseInt(lineHeight);
 
-  //获取原始数据不跟随元数据改变
-  str = JSON.parse(JSON.stringify(boxid.innerHTML));
-  let tempstr = str;
-  // console.log(str)
+    //获取原始数据不跟随元数据改变
+    str = JSON.parse(JSON.stringify(boxid.innerHTML));
+    let tempstr = str;
+    // console.log(str)
 
-  let len = tempstr.length;
-  let i = 0;
-  if (boxid.offsetHeight > top) {
-    if (props.ellipsis.showMore) {
-      ismore.value = true;
-    }
+    let len = tempstr.length;
+    let i = 0;
+    if (boxid.offsetHeight > top) {
+      if (props.ellipsis.showMore) {
+        ismore.value = true;
+      }
 
-    let temp = "";
-    boxid.innerHTML = temp;
-    // console.log(tempstr)
-    while (boxid.offsetHeight <= top) {
-      temp = tempstr.substring(0, i + 1);
-      i++;
+      let temp = "";
       boxid.innerHTML = temp;
+      // console.log(tempstr)
+      while (boxid.offsetHeight <= top) {
+        temp = tempstr.substring(0, i + 1);
+        i++;
+        boxid.innerHTML = temp;
+      }
+      tempstr = temp.substring(0, temp.length - 1);
+      len = tempstr.length;
+      if (ismore.value) {
+        boxid.innerHTML = tempstr.substring(0, len - 3) + "...";
+      } else {
+        boxid.innerHTML = tempstr.substring(0, len - 1) + "...";
+      }
+      boxid.height = top + "rem";
     }
-    tempstr = temp.substring(0, temp.length - 1);
-    len = tempstr.length;
-    if (ismore.value) {
-      boxid.innerHTML = tempstr.substring(0, len - 3) + "...";
-    } else {
-      boxid.innerHTML = tempstr.substring(0, len - 1) + "...";
-    }
-    boxid.height = top + "rem";
   }
 };
 
@@ -100,14 +100,17 @@ onMounted(() => {
 </script>
 <style lang="less" scoped>
 @import '../../assets/style/yk-index.less';
+
 .yk-paragraph {
   margin-bottom: 1em;
   position: relative;
 }
-.icon{
-  fill:@lcolor;
+
+.icon {
+  fill: @lcolor;
   cursor: pointer;
 }
+
 .more-par {
   position: absolute;
   right: 0;
@@ -124,12 +127,13 @@ onMounted(() => {
   -webkit-box-orient: vertical;
 }
 
-.pcolor {
-  color: @pcolor;
-}
-.primary{
+.default{
   color:@font-color-l;
 }
+.primary{
+  color:@pcolor;
+}
+
 .secondary {
   color: @font-color-m;
 }
@@ -160,5 +164,4 @@ onMounted(() => {
   right: 0;
   bottom: 0;
   color: @lcolor;
-}
-</style>
+}</style>
