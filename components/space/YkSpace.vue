@@ -1,5 +1,5 @@
 <template>
-  <div class="yk-space" :style="{ rowGap: getMargin(rsize) + 'px', columnGap: getMargin(size) + 'px', flexWrap: wrap ? 'wrap' : 'nowrap', flexDirection: flexDirection(direction), width: fill ? '100%' : '',alignItems:getAlign(align)}">
+  <div class="yk-space" :style="{ rowGap: getMargin(rsize) + 'px', columnGap: getMargin(size) + 'px', flexWrap: wrap ? 'wrap' : 'nowrap', flexDirection: flexDirection(direction), width: fill ? '100%' : '',alignItems:getAlign(aline)}">
     <slot></slot>
   </div>
 </template>
@@ -8,7 +8,7 @@
 // import { ref, onMounted, h } from "vue";
 
 const props = defineProps({
-  align: {
+  aline: {
     type: String,
     default:''
   },
@@ -18,7 +18,7 @@ const props = defineProps({
   },
   size: {
     type: [Number, String],
-    default: "small"
+    default: "m"
   },
   wrap: {
     type: Boolean,
@@ -26,7 +26,7 @@ const props = defineProps({
   },
   rsize: {
     type: [Number, String],
-    default: "small"
+    default: "m"
   },
   fill: {//是否整行
     type: Boolean,
@@ -40,16 +40,16 @@ const getMargin = (size: number | string) => {
     return size;
   }
   switch (size) {
-    case "ss":
-      return 4;
     case "s":
-      return 8;
+      return 4;
     case "m":
-      return 16;
+      return 8;
     case "l":
+      return 16;
+    case "xl":
       return 24;
     default:
-      return 16;
+      return 8;
   }
 }
 
@@ -64,16 +64,16 @@ const flexDirection = (dir: string): string => {
 //对齐方式
 const getAlign = (align:string):string=>{
   switch (align) {
-    case "top":
+    case "satrt":
       return 'flex-start';
-    case "button":
+    case "end":
       return 'flex-end';
     case "center":
       return 'center';
     case "baseline":
       return 'baseline';
     default:
-      return 'center';
+      return 'flex-start';
   }
 }
 

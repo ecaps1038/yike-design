@@ -120,7 +120,7 @@ ykShape.value = btShape(props.shape)
 }
 
 //size
-.ss {
+.s {
   .yk-button-bg {
     border-radius: @radius-s;
   }
@@ -133,7 +133,7 @@ ykShape.value = btShape(props.shape)
   }
 }
 
-.s {
+.m {
   .yk-button-bg {
     border-radius: @radius-s;
   }
@@ -146,7 +146,7 @@ ykShape.value = btShape(props.shape)
   height: 32px;
 }
 
-.m {
+.l {
   height: 36px;
 
   .yk-buton-name {
@@ -159,7 +159,7 @@ ykShape.value = btShape(props.shape)
   }
 }
 
-.l {
+.xl {
   height: 48px;
 
   .yk-buton-name {

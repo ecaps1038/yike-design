@@ -5,13 +5,13 @@
       return size;
     }
     switch (size) {
-      case "ss":
-        return 24;
       case "s":
-        return 32;
+        return 24;
       case "m":
-        return 40;
+        return 32;
       case "l":
+        return 40;
+      case "xl":
         return 80;
       default:
         return 40;
