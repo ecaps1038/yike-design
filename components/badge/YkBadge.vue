@@ -1,9 +1,10 @@
 <template>
   <div id="yk-badge" ref="badge">
+    <!-- 徽标 -->
     <slot></slot>
     <transition name="modal">
       <div v-if="!status" :class="[{ badge: !dot, dot: dot }, type]" v-show="(count > 0)" class="yk-badge"
-        :style="{ backgroundColor: '@wcolor', right: !dot ? -rightWidth(count) + 'px' : '', borderWidth: border + 'px' }">
+        :style="{ backgroundColor: color, right: !dot ? -rightWidth(count) + 'px' : '', borderWidth: border + 'px' }">
         <p class="count">{{ nowCount }}</p>
       </div>
     </transition>
@@ -31,7 +32,7 @@ const props = defineProps({
   status: {
     type: Boolean
   },
-  type: {//'normal' | 'primary' | 'success' | 'warning' | 'danger'
+  type: {//'default' | 'primary' | 'success' | 'warning' | 'danger'
     type: String,
   },
   text: {
@@ -159,8 +160,8 @@ onMounted(() => {
   }
 
   .dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     right: -4px;
     top: -4px;
 
@@ -176,8 +177,8 @@ onMounted(() => {
   }
 
   .status-dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     background-color: @font-color-s;
     border-radius: @radius-r;
     transition: all @animats;
@@ -189,7 +190,7 @@ onMounted(() => {
 
 
   //状态色
-  .normal {
+  .default {
     background-color: @font-color-s;
   }
 
