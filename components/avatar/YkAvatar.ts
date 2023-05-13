@@ -26,10 +26,10 @@
     }
     switch (shape) {
       case "circle":
-        return 80;
+        return 200;
       case "square":
         return 8;
       default:
-        return 40;
+        return 200;
     }
   };

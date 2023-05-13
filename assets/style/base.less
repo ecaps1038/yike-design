@@ -1,20 +1,3 @@
-/* color palette from <https://github.com/vuejs/theme> */
-:root {
-  --vt-c-white: #ffffff;
-  --vt-c-black: #181818;
-}
-
-/* semantic color variables for this project */
-:root {
-  --color-background: var(--vt-c-white);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--vt-c-black);
-  }
-}
-
 // -------- Colors -----------
 @pcolor: #2B5AED; // 全局主色
 @lcolor: #1890ff; // 链接色
@@ -35,10 +18,10 @@
 @size-xl: 32px; // 特大号
 
 //font-color
-@font-color-l: var(--fontcolorl, rgba(30,32,37,1));
-@font-color-m: var(--fontcolorm, rgba(30,32,37,0.8));
-@font-color-s: var(--fontcolors, rgba(30,32,37,0.5));
-@font-color-ss: var(--fontcolorss, rgba(30,32,37,0.3));
+@font-color-l: var(--fontcolorl, rgba(30, 32, 37, 1));
+@font-color-m: var(--fontcolorm, rgba(30, 32, 37, 0.8));
+@font-color-s: var(--fontcolors, rgba(30, 32, 37, 0.5));
+@font-color-ss: var(--fontcolorss, rgba(30, 32, 37, 0.3));
 
 //bg-color
 @bg-color-l: var(--bgcolorl, #fff);
@@ -56,17 +39,20 @@
 @radius-xl: 16px;
 @radius-m: 8px;
 @radius-s: 4px;
-@radius-r:800px;
+@radius-r: 800px;
 
 //背景投影
-@shadow-s: 0 6px 6px -2px rgba(0,0,0,0.12);
-@shadow-m: 0 8px 24px -4px rgba(0,0,0,0.20);
-@shadow-L: 0 4px 48px 0 rgba(0,0,0,0.12);
+@shadow-s: 0 6px 6px -2px rgba(0, 0, 0, 0.12);
+@shadow-m: 0 4px 16px 0 rgba(0, 0, 0, 0.16);
+@shadow-l: 0 4px 48px 0 rgba(0, 0, 0, 0.12);
 
 //间距space
-@space-ss:4px;
-@space-s:8px;
-@space-m:16px;
-@space-l:24px;
+@space-ss: 4px;
+@space-s: 8px;
+@space-m: 16px;
+@space-l: 24px;
 
-
+.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
