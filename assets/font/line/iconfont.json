@@ -6,6 +6,48 @@
   "description": "线性基础图标",
   "glyphs": [
     {
+      "icon_id": "35585713",
+      "name": "心",
+      "font_class": "xin",
+      "unicode": "e6ee",
+      "unicode_decimal": 59118
+    },
+    {
+      "icon_id": "35585714",
+      "name": "五角星",
+      "font_class": "wujiaoxing",
+      "unicode": "e6ef",
+      "unicode_decimal": 59119
+    },
+    {
+      "icon_id": "35084142",
+      "name": "左旋转",
+      "font_class": "zuoxuanzhuan",
+      "unicode": "e6ed",
+      "unicode_decimal": 59117
+    },
+    {
+      "icon_id": "35083545",
+      "name": "菜单",
+      "font_class": "caidan",
+      "unicode": "e6ea",
+      "unicode_decimal": 59114
+    },
+    {
+      "icon_id": "35083546",
+      "name": "展开",
+      "font_class": "zhankai",
+      "unicode": "e6eb",
+      "unicode_decimal": 59115
+    },
+    {
+      "icon_id": "35083547",
+      "name": "收起",
+      "font_class": "shouqi",
+      "unicode": "e6ec",
+      "unicode_decimal": 59116
+    },
+    {
       "icon_id": "34952306",
       "name": "斜线",
       "font_class": "xiexian",
@@ -389,20 +431,6 @@
       "font_class": "a-xiangxia2",
       "unicode": "e6d1",
       "unicode_decimal": 59089
-    },
-    {
-      "icon_id": "34582196",
-      "name": "五角星",
-      "font_class": "wujiaoxing",
-      "unicode": "e6d2",
-      "unicode_decimal": 59090
-    },
-    {
-      "icon_id": "34582197",
-      "name": "心",
-      "font_class": "xin",
-      "unicode": "e6d3",
-      "unicode_decimal": 59091
     },
     {
       "icon_id": "34582198",

@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "35585570",
+      "name": "五角星",
+      "font_class": "wujiaoxing",
+      "unicode": "e6da",
+      "unicode_decimal": 59098
+    },
+    {
+      "icon_id": "35585571",
+      "name": "心",
+      "font_class": "xin",
+      "unicode": "e6db",
+      "unicode_decimal": 59099
+    },
+    {
       "icon_id": "1381385",
       "name": "github",
       "font_class": "github",
@@ -272,13 +286,6 @@
       "unicode_decimal": 59077
     },
     {
-      "icon_id": "34631586",
-      "name": "心",
-      "font_class": "xin",
-      "unicode": "e6c6",
-      "unicode_decimal": 59078
-    },
-    {
       "icon_id": "34631587",
       "name": "退出",
       "font_class": "tuichu",
@@ -312,13 +319,6 @@
       "font_class": "huohuo",
       "unicode": "e6cb",
       "unicode_decimal": 59083
-    },
-    {
-      "icon_id": "34631592",
-      "name": "五角星",
-      "font_class": "wujiaoxing",
-      "unicode": "e6cc",
-      "unicode_decimal": 59084
     },
     {
       "icon_id": "34631593",

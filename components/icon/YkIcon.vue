@@ -1,22 +1,19 @@
 <template>
-    <svg class="icon" aria-hidden="true">
-  <use :xlink:href="'#'+name"></use>
-</svg>
-    <!-- <span :class="'iconfont ' +name"></span> -->
+  <svg class="icon" aria-hidden="true">
+    <use :xlink:href="'#' + name"></use>
+  </svg>
 </template>
 <script setup lang="ts">
 import '../../assets/font/line/iconfont.js'
 import '../../assets/font/surface/iconfont.js'
-const props =defineProps({
-    name:{
-        type:String,
-        defalut:'yike-yikedesign',
-    },
+const props = defineProps({
+  name: {
+    type: String,
+    defalut: 'yike-yikedesign',
+  },
 })
 </script>
 <style lang="less" scoped>
-// @import '../../assets/font/surface/iconfont.css';
-// @import '../../assets/font/line/iconfont.css';
 @import '../../assets/style/yk-index.less';
 
 .icon {

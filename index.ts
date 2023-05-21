@@ -1,5 +1,9 @@
+import Theme from './components/theme/YkTheme.vue'
 import Button from './components/button/YkButton.vue'
+import ButtonGroup from './components/button/YkBtGroup.vue'
+import Message from './components/message/Message'
 import Icon from './components/icon/YkIcon.vue'
+import Animate from './components/icon/ykAnimate.vue'
 import Title from './components/typography/YkTitle.vue'
 import Text from './components/typography/YkText.vue'
 import Paragraph from './components/typography/YkParagraph.vue'
@@ -8,50 +12,85 @@ import Space from './components/space/YkSpace.vue'
 import Avatar from './components/avatar/YkAvatar.vue'
 import AvatarGroup from './components/avatar/YkAvatarGroup.vue'
 import Badge from './components/badge/YkBadge.vue'
+import Table from './components/table/YkTable.vue'
 import Crumb from './components/crumb/YkCrumb.vue'
 import CrumbItem from './components/crumb/CrumbItem.vue'
+import Input from './components/input/YkInput.vue'
+import InputSearch from './components/input/ykInputSearch.vue'
+import InputPassword from './components/input/ykInputPassword.vue'
+import Dropdown from './components/dropdown/YkDropdown.vue'
+import Doption from './components/dropdown/YkDropdownItem.vue'
+import Submenu from './components/submenu/ykSubmenu.vue'
+import Pagination from './components/pagination/ykPagination.vue'
 
 
 import type { Component } from 'vue'
 
-
 const components: {
-  [propName: string]: Component //字面量类型，每个属性值类型为组件的类型
+    [propName: string]: Component //字面量类型，每个属性值类型为组件的类型
 } = {
-  Button,
-  Icon,
-  Title,
-  Text,
-  Paragraph,
-  Container,
-  Space,
-  Avatar,
-  AvatarGroup,
-  Badge,
-  Crumb,
-  CrumbItem,
+    Theme,
+    Button,
+    Icon,
+    Animate,
+    Title,
+    Text,
+    Paragraph,
+    Container,
+    Space,
+    ButtonGroup,
+    Avatar,
+    AvatarGroup,
+    Badge,
+    Table,
+    Crumb,
+    CrumbItem,
+    Input,
+    InputSearch,
+    InputPassword,
+    Dropdown,
+    Doption,
+    Submenu,
+    Pagination,
 };
 
-const install = (app: any) => {
-  // 全局挂载 原型函数 过组件实例调用的属性   this.$message
-  for (const componentItme in components) {
-    app.component(componentItme, components[componentItme])
+  const install = (app:any) => {
+    // 全局挂载 原型函数 过组件实例调用的属性   this.$message
+    for (const componentItme in components) {
+        app.component(componentItme, components[componentItme])
+      }
+
+    app.config.globalProperties.$message = Message
   }
-}
+
+//全局引入使用
+// export default install
 
 //按需引入使用
 export {
-  install,//全局
-  Button,//按钮
-  Icon,//图标
-  Title,//标题
-  Text,//文字
-  Paragraph,//段落
-  Container,//区域块
-  Space,//间距
-  Avatar,//头像
-  AvatarGroup,//头像组
-  Badge,//徽标
-  Crumb,//面包屑
-  CrumbItem,//面包屑节点
+    install,//全局
+    Theme,//主题
+    Button,//按钮
+    Message,//全局信息
+    Icon,//图标
+    Animate,//动态
+    Title,//标题
+    Text,//文字
+    Paragraph,//段落
+    Container,//区域块
+    Space,//间距
+    ButtonGroup,
+    Avatar,//头像
+    AvatarGroup,//头像组
+    Badge,//徽标
+    Table,//表格
+    Crumb,//面包屑
+    CrumbItem,//面包屑节点
+    Input,//输入框
+    InputSearch,//搜索框
+    InputPassword,//密码
+    Dropdown,//下拉菜单
+    Doption,//下啦菜单选项
+    Submenu,//子菜单
+    Pagination,//翻页
 }

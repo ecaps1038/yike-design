@@ -65,7 +65,7 @@ onMounted(() => {
     background-color: @pcolor;
     color: #fff;
     text-align: center;
-    font-weight: 600;
+    font-weight: 500;
     border: 2px solid @bg-color-l;
     transition: border @animats;
   }

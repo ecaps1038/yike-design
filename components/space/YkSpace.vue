@@ -18,7 +18,7 @@ const props = defineProps({
   },
   size: {
     type: [Number, String],
-    default: "m"
+    default: "l"
   },
   wrap: {
     type: Boolean,
@@ -26,7 +26,7 @@ const props = defineProps({
   },
   rsize: {
     type: [Number, String],
-    default: "m"
+    default: "l"
   },
   fill: {//是否整行
     type: Boolean,
@@ -49,7 +49,7 @@ const getMargin = (size: number | string) => {
     case "xl":
       return 24;
     default:
-      return 8;
+      return 16;
   }
 }
 

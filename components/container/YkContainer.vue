@@ -1,33 +1,32 @@
 <template>
-  <div class="yk-container" :style="{height:addHeight(height)}">
+  <div class="yk-container">
     <slot> </slot>
   </div>
 </template>
 <script setup lang="ts">
-  const props = defineProps({
-    height:{
-      type:Number,
-      default:0,
-    }
-  })
-
-  //获取屏幕body高度
-  let bodyHeight=document.body.clientHeight;
-
-  //计算元素高度
-  const addHeight = (height:number):string=>{
-    if(height==0){
-      return 'auto';
-    }else{
-      return bodyHeight+height+'px';
-    }
+const props = defineProps({
+  height: {
+    type: String,
+    default: 'auto',
   }
+})
+
+//获取屏幕body高度
+let bodyHeight = document.body.clientHeight;
+
 </script>
 <style lang="less" scoped>
 @import '../../assets/style/yk-index.less';
+
 .yk-container {
-  overflow-x: auto;
+  overflow:auto;
+
   // padding-right:12px;
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
 }
 
 .yk-container::-webkit-scrollbar {
@@ -40,7 +39,8 @@
 .yk-container::-webkit-scrollbar-thumb {
   /*滚动条里面小方块*/
   border-radius: 4px;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.1);
+
 }
 
 .yk-container::-webkit-scrollbar-track {

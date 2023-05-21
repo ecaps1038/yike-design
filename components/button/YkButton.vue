@@ -28,7 +28,7 @@ const props = defineProps({
   },
   size: {//ss/s/m/l
     type: String,
-    default: 'm'
+    default: 'l'
   },
   long: {
     type: Boolean,
@@ -125,14 +125,14 @@ ykShape.value = btShape(props.shape)
     border-radius: @radius-s;
   }
 
-  height: 28px;
+  height: 24px;
 
   .yk-buton-name {
     padding: 0 8px;
-    min-width: 28px;
+    min-width: 24px;
+    font-size: @size-ss;
   }
 }
-
 .m {
   .yk-button-bg {
     border-radius: @radius-s;
@@ -163,7 +163,7 @@ ykShape.value = btShape(props.shape)
   height: 48px;
 
   .yk-buton-name {
-    font-size: @size-l;
+    font-size: @size-m;
     padding: 0 24px;
     min-width: 48px;
   }
@@ -308,10 +308,6 @@ ykShape.value = btShape(props.shape)
   }
 }
 
-.disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
 .loading{
   opacity: 0.7;
   pointer-events: none;

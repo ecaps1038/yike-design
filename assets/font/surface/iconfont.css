@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3957844 */
-  src: url('iconfont.woff2?t=1678978639698') format('woff2'),
-       url('iconfont.woff?t=1678978639698') format('woff'),
-       url('iconfont.ttf?t=1678978639698') format('truetype');
+  src: url('iconfont.woff2?t=1684462124776') format('woff2'),
+       url('iconfont.woff?t=1684462124776') format('woff'),
+       url('iconfont.ttf?t=1684462124776') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.yike-wujiaoxing:before {
+  content: "\e6da";
+}
+
+.yike-xin:before {
+  content: "\e6db";
 }
 
 .yike-github:before {
@@ -165,10 +173,6 @@
   content: "\e6c5";
 }
 
-.yike-xin:before {
-  content: "\e6c6";
-}
-
 .yike-tuichu:before {
   content: "\e6c7";
 }
@@ -187,10 +191,6 @@
 
 .yike-huohuo:before {
   content: "\e6cb";
-}
-
-.yike-wujiaoxing:before {
-  content: "\e6cc";
 }
 
 .yike-yueliang:before {

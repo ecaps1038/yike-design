@@ -27,6 +27,7 @@ export const getRandomString = (len:number) => {
   return _str;
 }
 
+
 //拷贝内容
 export const tryCopy = (copyWrapper:any):void => {
   // 创建select对象与range对象
@@ -38,7 +39,6 @@ export const tryCopy = (copyWrapper:any):void => {
   if (selection.rangeCount > 0) selection.removeAllRanges();
   // 使 Range 包含某个节点的内容 使用这个 或者下面的selectNode都可以
   // range.selectNodeContents(tx)
-
   // 使 Range 包含某个节点及其内容
   range.selectNode(copyWrapper);
   // 向选区（Selection）中添加一个区域（Range）
@@ -49,4 +49,24 @@ export const tryCopy = (copyWrapper:any):void => {
   document.execCommand("copy");
   //复制完成后取消选区
   selection.removeAllRanges();
+}
+
+
+//自定义$emit和$on函数
+const map:any={};
+export const $emit=(name:any,params:any)=>{
+    if(map[name]==null){
+        console.log("没有找到关于"+name+"的事件，无法触发")
+    }else{
+        map[name].detail=params;
+        window.dispatchEvent(map[name]);
+    }
+};
+export const $on=(name:any,work:any)=>{
+    let myEvent = new Event(name);
+    map[name]=myEvent;
+    window.addEventListener(name, (event)=>{
+        // console.log('得到数据为：', event.detail);
+        work(map[name].detail);
+    });
 }
