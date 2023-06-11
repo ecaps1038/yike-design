@@ -18,10 +18,15 @@ import CrumbItem from './components/crumb/CrumbItem.vue'
 import Input from './components/input/YkInput.vue'
 import InputSearch from './components/input/ykInputSearch.vue'
 import InputPassword from './components/input/ykInputPassword.vue'
+import Textarea from './components/textarea/ykTextarea.vue'
 import Dropdown from './components/dropdown/YkDropdown.vue'
 import Doption from './components/dropdown/YkDropdownItem.vue'
 import Submenu from './components/submenu/ykSubmenu.vue'
 import Pagination from './components/pagination/ykPagination.vue'
+import Checkbox from './components/checkbox/ykCheckbox.vue'
+import CheckboxGroup from './components/checkbox/ykChackboxGroup.vue'
+import Radio from './components/radio/ykRadio.vue'
+import RadioGroup from './components/radio/ykRadioGroup.vue'
 
 
 import type { Component } from 'vue'
@@ -48,10 +53,15 @@ const components: {
     Input,
     InputSearch,
     InputPassword,
+    Textarea,
     Dropdown,
     Doption,
     Submenu,
     Pagination,
+    Checkbox,
+    CheckboxGroup,
+    Radio,
+    RadioGroup,
 };
 
   const install = (app:any) => {
@@ -89,8 +99,13 @@ export {
     Input,//输入框
     InputSearch,//搜索框
     InputPassword,//密码
+    Textarea,//文本域
     Dropdown,//下拉菜单
     Doption,//下啦菜单选项
     Submenu,//子菜单
     Pagination,//翻页
+    Checkbox,//复选框
+    CheckboxGroup,//复选框组
+    Radio,//单选
+    RadioGroup,//单选组
 }

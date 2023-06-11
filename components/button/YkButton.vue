@@ -1,6 +1,6 @@
 <template>
-  <div class="yk-button" :class="[type, size, btStatus(status), { disabled: disabled },{loading:loading}]"
-    :style="{ width: long ? '100%' : 'auto' }">
+  <div :class=" { disabled: disabled }" :style="{ width: long ? '100%' : 'auto' }" class="buttons">
+  <div class="yk-button" :class="[type, size, btStatus(status),{loading:loading}]" :style="{ width: long ? '100%' : 'auto' }">
     <div class="yk-button-bg" :style="{ borderRadius: ykShape[0] }"></div>
     <p class="yk-buton-name" :style="{ padding: ykShape[1] }">
       <svg viewBox="25 25 50 50" v-show="loading">
@@ -8,7 +8,7 @@
       </svg>
       <slot></slot>
     </p>
-  </div>
+  </div></div>
 </template>
 
 <script setup lang="ts">
@@ -86,9 +86,10 @@ ykShape.value = btShape(props.shape)
 
 <style lang="less" scoped>
 @import '../../assets/style/yk-index.less';
-
-.yk-button {
+.buttons{
   display: inline-block;
+}
+.yk-button {
   vertical-align:top;
   align-items: center;
   cursor: pointer;
@@ -104,6 +105,9 @@ ykShape.value = btShape(props.shape)
     -moz-user-select: none;
     -khtml-user-select: none;
     user-select: none;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   }
 
   .yk-button-bg {

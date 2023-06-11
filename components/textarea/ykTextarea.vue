@@ -7,6 +7,11 @@ const props = defineProps({
     //input 内容
     type: [String, Number],
   },
+  allowClear: {
+    //显示清除
+    type: Boolean,
+    default: false,
+  },
   error: {
     //错误
     type: Boolean,
@@ -14,16 +19,6 @@ const props = defineProps({
   },
   disabled: {
     //是否被激活
-    type: Boolean,
-    default: false,
-  },
-  size: {
-    //大小
-    type: String,
-    default: "l",
-  },
-  allowClear: {
-    //显示清除
     type: Boolean,
     default: false,
   },
@@ -46,20 +41,65 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  type: {
-    type: String,
-    default: 'text',
+  resize: {
+    //是否可以改变大小
+    type: Boolean,
+    default: false,
+  },
+  autoSize: {
+    //是否自适应高度
+    type: [Object, Boolean],
   }
 });
 const emits = defineEmits(["update:modelValue", "focus", "blur", "clear", "pEnter"]);
 
 //计算字符长度
+//获取元素
+const textarea = ref(null)
+const area = ref(null)
+//元素当前高度
+const textareaHeight = ref();
+//元素行高
+const textareaLineHeight = 20;
+
+//元素行数
+const minRows = ref(2);
+const maxRows = ref(0);
+
+//获取输入框最大及最小高度
+if (props.autoSize) {
+  minRows.value = 1;
+  if (Object.prototype.toString.call(props.autoSize) === '[object Object]') {
+    //判断属性是否存在
+    if ('minRows' in (props.autoSize as object)) {
+      minRows.value = props.autoSize.minRows
+    }
+    if ('maxRows' in (props.autoSize as object)) {
+      maxRows.value = props.autoSize.maxRows
+    }
+  }
+}
+
+//获取当前高度
+const gitNowHeight = () => {
+  //元素高度
+  const textareaV: any = textarea.value;
+  const areaV: any = area.value
+  areaV.style.height = 'inherit'
+  let nowHeight = textareaV.scrollHeight;
+  if (maxRows.value > 0 && nowHeight > textareaLineHeight * maxRows.value + 16) {
+    nowHeight = textareaLineHeight * maxRows.value + 16
+  }
+  textareaHeight.value = nowHeight + 2;
+}
+
 const valueLength = ref(0)
 const emitValue = (e: any) => {
   emits("update:modelValue", e.target.value);
   if (props.maxLength) {
     valueLength.value = e.target.value.length
   }
+  gitNowHeight();
 };
 
 //监听焦点变化
@@ -81,34 +121,6 @@ const keyEnter = () => {
   emits("pEnter", props.modelValue)
 }
 
-//判断外挂修饰
-const primp = ref([false, false, false, false])
-//获取前缀
-const prefix = ref();
-//获取后缀
-const suffix = ref();
-//获取前置标签
-const prepend = ref();
-//获取后置标签
-const append = ref();
-
-//修饰计算
-const getPrimp = () => {
-  primp.value = [false, false, false, false]
-  if (prefix.value.children.length > 0) {
-    primp.value[0] = true;
-  }
-  if (suffix.value.children.length > 0) {
-    primp.value[1] = true;
-  }
-  if (prepend.value.children.length > 0) {
-    primp.value[2] = true;
-  }
-  if (append.value.children.length > 0) {
-    primp.value[3] = true;
-  }
-}
-
 //清空内容
 const clearValue = () => {
   emits("clear", props.modelValue)
@@ -116,36 +128,32 @@ const clearValue = () => {
 };
 
 onMounted(() => {
+  //初始化元素高度
+  const textareaV: any = textarea.value;
+  let nowHeight = textareaV.scrollHeight;
+  if (maxRows.value > 0 && nowHeight > textareaLineHeight * maxRows.value + 16) {
+    nowHeight = textareaLineHeight * maxRows.value + 16
+  }
+  textareaHeight.value = nowHeight + 2;
+
   //获取原始数据长度
   if (props.modelValue) {
     valueLength.value = props.modelValue.toString().length
   }
-  getPrimp();
 });
 </script>
 <template>
-  <div class="inputs" :class="{ disabled: disabled }">
-    <div class="yk-input" :class="{ error: error, normal: !error, readonly: readonly }">
-      <div :class="[size, { focus: isFocus }]" class="yk-input-inner">
-        <div class="prepend" ref="prepend" :class="[size, size + 'r']" v-show="primp[2]">
-          <slot name="prepend"></slot>
-        </div>
-        <div class="prefix fix" ref="prefix" :class="[size]" v-show="primp[0]">
-          <slot name="prefix"></slot>
-        </div>
-        <input :value="modelValue" :placeholder="placeholder" class="input" :class="[size]" @input="emitValue"
-          @blur="blur" @focus="focus" @keyup.enter="keyEnter" ref="input" :type="type" :maxlength="maxLength"
-          :readonly="readonly" />
-        <div class="icon-div" v-show="modelValue && allowClear" :class="[size]">
+  <div class="textareas" ref="area" :class="{ disabled: disabled }"
+    :style="{ height: autoSize ? textareaHeight + 'px' : 'auto' }">
+    <div class="yk-textarea" :class="{ error: error, normal: !error, readonly: readonly }">
+      <div :class="[{ focus: isFocus }]" class="yk-textarea-inner">
+        <textarea :value="modelValue" :placeholder="placeholder" class="textarea" @input="emitValue" @blur="blur"
+          @focus="focus" @keyup.enter="keyEnter" :class="[{ resize: resize && !autoSize }]" ref="textarea" :rows="minRows"
+          :maxlength="maxLength" :readonly="readonly"></textarea>
+        <div class="icon-div" v-show="modelValue && allowClear">
           <ykIcon @click="clearValue" name="yk-cha" class="clear-icon" />
         </div>
-        <p class="show-length" v-show="maxLength" :class="[size]">{{ valueLength }}/{{ maxLength }}</p>
-        <div class="suffix fix" ref="suffix" :class="[size]" v-show="primp[1]">
-          <slot name="suffix"></slot>
-        </div>
-        <div class="append" ref="append" :class="[size, size + 'l']" v-show="primp[3]">
-          <slot name="append"></slot>
-        </div>
+        <p class="show-length" v-show="maxLength">{{ valueLength }}/{{ maxLength }}</p>
       </div>
     </div>
   </div>
@@ -153,13 +161,12 @@ onMounted(() => {
 <style lang="less" scoped>
 @import "../../assets/style/yk-index.less";
 
-.inputs {
-  display: inline-flex;
-  width: 200px;
+.textareas {
   position: relative;
+  width: 100%;
 }
 
-.yk-input {
+.yk-textarea {
   width: 100%;
   height: 100%;
 }
@@ -172,7 +179,7 @@ onMounted(() => {
       display: block;
     }
 
-    .yk-input-inner {
+    .yk-textarea-inner {
       border-color: @pcolor;
       background: @bg-color-m;
     }
@@ -196,13 +203,13 @@ onMounted(() => {
       display: block;
     }
 
-    .yk-input-inner {
+    .yk-textarea-inner {
       border-color: @ecolor;
       background: @ecolor-1;
     }
   }
 
-  .yk-input-inner {
+  .yk-textarea-inner {
     border-color: @ecolor-2;
     background: @ecolor-2;
   }
@@ -225,7 +232,7 @@ onMounted(() => {
       display: none;
     }
 
-    .yk-input-inner {
+    .yk-textarea-inner {
       border-color: @bg-color-s;
       background: @bg-color-s;
     }
@@ -243,53 +250,27 @@ onMounted(() => {
 
 }
 
-
-//input内部
-.yk-input-inner {
+//内部
+.yk-textarea-inner {
   box-sizing: border-box;
   border: 1px solid @bg-color-s;
   background: @bg-color-s;
   border-radius: @radius-m;
   padding: 0;
   color: @font-color-l;
-  line-height: 36px;
   transition: @animatb;
   display: flex;
   align-items: center;
   width: 100%;
-}
-
-.prepend {
-
-  // background:rgba(0,0,0,0.1);
-  &::after {
-    content: '';
-    display: block;
-    height: 60%;
-    width: 1px;
-    background-color: @line-color-m;
-    position: absolute;
-    right: 0;
-    top: 20%;
-  }
-}
-
-.append {
-  &::after {
-    content: '';
-    display: block;
-    height: 60%;
-    width: 1px;
-    background-color: @line-color-m;
-    position: absolute;
-    left: 0;
-    top: 20%;
-  }
+  height: 100%;
 }
 
 .icon-div {
   display: none;
-  // background:#333;
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  z-index: 10;
 }
 
 .clear-icon {
@@ -297,7 +278,6 @@ onMounted(() => {
   padding: 4px;
   border-radius: 12px;
   font-size: 20px;
-  // vertical-align: middle;
   transition: all @animatb;
   cursor: pointer;
 
@@ -306,81 +286,31 @@ onMounted(() => {
   }
 }
 
-.input {
+.textarea {
   box-sizing: border-box;
   border: 0;
-  // background-color:#bbb;
   background-color: transparent;
   outline: none;
-  padding: 0;
+  padding: @space-s 12px;
   color: @font-color-l;
+  line-height: 20px;
   transition: @animatb;
   width: 100%;
+  height: 100%;
+  resize: none;
 }
 
-//size
-.s {
-  padding: 0 4px;
-  line-height: 24px;
-  height: 24px;
-  font-size: @size-ss;
-  border-radius: @radius-s;
-}
-
-.sl {
-  padding-left: 8px;
-}
-
-.sr {
-  padding-right: 8px;
-}
-
-.m {
-  padding: 0 6px;
-  line-height: 32px;
-  height: 32px;
-  border-radius: @radius-s;
-}
-
-.ml {
-  padding-left: 12px;
-}
-
-.mr {
-  padding-right: 12px;
-}
-
-.l {
-  padding: 0 6px;
-  line-height: 36px;
-  height: 36px;
-}
-
-.ll {
-  padding-left: 12px;
-}
-
-.lr {
-  padding-right: 12px;
-}
-
-.xl {
-  padding: 0 8px;
-  line-height: 48px;
-  height: 48px;
-  font-size: @size-m;
-}
-
-.xll {
-  padding-left: 16px;
-}
-
-.xlr {
-  padding-right: 16px;
+//可拖动
+.resize {
+  resize: vertical; //宽度固定，高度可动
 }
 
 //显示数字
 .show-length {
+  position: absolute;
+  right: 8px;
+  bottom: 7px;
+  z-index: 10;
   font-size: @size-ss;
   color: @font-color-s;
 }

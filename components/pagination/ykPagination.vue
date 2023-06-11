@@ -76,9 +76,15 @@ const selectPage = (e: number): void => {
 const downMore = (e: number): void => {
   if (e == 0 && !props.disabled) {
     nowPage.value -= 5;
+    if(nowPage.value<1){
+      nowPage.value=1;
+    }
     emit("pageData",{pageSize:nowSize.value,nowPage:nowPage.value})
   } else if (e == 1 && !props.disabled) {
     nowPage.value += 5;
+    if(nowPage.value>pages.value){
+      nowPage.value=pages.value;
+    }
     emit("pageData",{pageSize:nowSize.value,nowPage:nowPage.value})
   }
 }
@@ -144,6 +150,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="yk-pagination" :class="[{ disabled: disabled }, size]">
+    <div :class="{cover:disabled}" v-show="disabled"></div>
     <p class="total-data" v-if="showTotal">共 {{ total }} 条</p>
     <div class="pagination">
       <div class="pgitem left" @click="downSwitch(0)" :class="{ disabled: nowPage == 1 }">
@@ -282,32 +289,6 @@ onMounted(() => {
 
     &:hover {
       background-color: @bg-color-s;
-    }
-  }
-}
-
-.disabled {
-  opacity: 0.4;
-
-  .pagination {
-    .pgitem {
-      cursor: not-allowed;
-
-      &:hover {
-        background-color: @bg-color-s;
-      }
-    }
-
-    .more {
-      &:hover {
-        background-color: @bg-color-l;
-      }
-    }
-
-    .nowpage {
-      &:hover {
-        background-color: @pcolor;
-      }
     }
   }
 }

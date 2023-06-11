@@ -6,7 +6,7 @@ import ykAnimate from "../icon/ykAnimate.vue";
 const props = defineProps({
   modelValue: {
     //input 内容
-    type: [String,Number],
+    type: [String, Number],
   },
 
   disabled: {
@@ -92,7 +92,7 @@ const keyEnter = () => {
 
 //点击搜索事件
 const search = () => {
-  if(!props.loading){
+  if (!props.loading) {
     emits("search", props.modelValue);
   }
 };
@@ -131,31 +131,16 @@ onMounted(() => {
 </script>
 <template>
   <div class="yk-input-search">
-    <div
-      class="yk-input"
-      :class="{
-        disabled: disabled,
-        focus: isFocus,
-      }"
-    >
-      <div :class="[size, { focus: isFocus,isbutton:button }]" class="yk-input-inner">
+    <div class="yk-input" :class="{
+      disabled: disabled,
+      focus: isFocus,
+    }">
+      <div :class="[size, { focus: isFocus, isbutton: button || buttonDefine }]" class="yk-input-inner">
         <div class="prefix fix" ref="prefix" :class="[size]" v-show="primp[0]">
           <slot name="prefix"></slot>
         </div>
-        <input
-          :value="modelValue"
-          :placeholder="placeholder"
-          class="input"
-          :class="[size]"
-          :disabled="disabled"
-          @input="emitValue"
-          @blur="blur"
-          @focus="focus"
-          @keyup.enter="keyEnter"
-          ref="input"
-          type="text"
-          :maxlength="maxLength"
-        />
+        <input :value="modelValue" :placeholder="placeholder" class="input" :class="[size]" @input="emitValue"
+          @blur="blur" @focus="focus" @keyup.enter="keyEnter" ref="input" type="text" :maxlength="maxLength" />
         <div class="icon-div" v-show="modelValue && allowClear" :class="[size]">
           <ykIcon @click="clearValue" name="yk-cha" class="clear-icon" />
         </div>
@@ -165,17 +150,17 @@ onMounted(() => {
         <div class="suffix fix" ref="suffix" :class="[size]" v-show="primp[1]">
           <slot name="suffix"></slot>
         </div>
-        <div class="search-icon" :class="[size,{disabled:loading}]" v-show="!button && !buttonDefine">
-          <ykIcon @click="search" name="yk-sousuo" :class="[size+'f']" class="search" v-show="!loading"/>
-          <ykAnimate name="loading" v-show="loading" :size="size"/>
+        <div class="search-icon" :class="[size, { disabled: loading }]" v-show="!button && !buttonDefine">
+          <ykIcon @click="search" name="yk-sousuo" :class="[size + 'f']" class="search" v-show="!loading" />
+          <ykAnimate name="loading" v-show="loading" :size="size" />
         </div>
       </div>
     </div>
-    <div class="search-button" :class="[size+'s',{disabled:loading,hover:!loading}]" v-show="button && !buttonDefine">
-      <ykIcon name="yk-sousuo" v-show="!loading" :class="[size+'f']" class="btsearch"/>
-      <ykAnimate name="loading" type="white" v-show="loading" :size="size"/>
+    <div class="search-button" :class="[size + 's', { disabled: loading, hover: !loading }]" v-show="button && !buttonDefine">
+      <ykIcon name="yk-sousuo" v-show="!loading" :class="[size + 'f']" class="btsearch" />
+      <ykAnimate name="loading" type="white" v-show="loading" :size="size" />
     </div>
-    <div class="search-button define" :class="[size+'s']" v-show="!button && buttonDefine">
+    <div class="search-button define" :class="[size + 's']" v-show="!button && buttonDefine">
       <slot name="define"></slot>
     </div>
   </div>
@@ -183,11 +168,12 @@ onMounted(() => {
 <style lang="less" scoped>
 @import "../../assets/style/yk-index.less";
 
-.yk-input-search{
-  display: flex;
+.yk-input-search {
+  display: inline-flex;
+  width: 320px;
 }
 
-.yk-input  {
+.yk-input {
   position: relative;
   width: 100%;
 
@@ -242,9 +228,12 @@ onMounted(() => {
   transition: @animatb;
   display: flex;
   align-items: center;
+  width: 100%;
 }
+
 .search-icon {
   margin-right: -4px;
+
   .icon {
     box-sizing: content-box;
     margin-bottom: -5px;
@@ -260,6 +249,7 @@ onMounted(() => {
   display: none;
   // background:#333;
 }
+
 .clear-icon {
   margin-bottom: -2px;
   padding: 4px;
@@ -295,16 +285,19 @@ onMounted(() => {
   font-size: @size-ss;
   border-radius: @radius-s;
 }
-.ss{
-  padding:0 8px;
+
+.ss {
+  padding: 0 8px;
   line-height: 24px;
   height: 24px;
   font-size: @size-ss;
   border-radius: 0 @radius-s @radius-s 0;
 }
-.sf{
-   font-size: @size-s;
+
+.sf {
+  font-size: @size-s;
 }
+
 .m {
   padding-left: 6px;
   padding-right: 6px;
@@ -312,14 +305,16 @@ onMounted(() => {
   height: 32px;
   border-radius: @radius-s;
 }
-.ms{
-  padding:0 12px;
+
+.ms {
+  padding: 0 12px;
   line-height: 32px;
   height: 32px;
   font-size: @size-s;
   border-radius: 0 @radius-s @radius-s 0;
 }
-.mf{
+
+.mf {
   font-size: @size-m;
 }
 
@@ -329,14 +324,16 @@ onMounted(() => {
   line-height: 36px;
   height: 36px;
 }
-.ls{
-  padding:0 12px;
+
+.ls {
+  padding: 0 12px;
   line-height: 36px;
   height: 36px;
   font-size: @size-s;
   border-radius: 0 @radius-m @radius-m 0;
 }
-.lf{
+
+.lf {
   font-size: @size-m;
 }
 
@@ -347,14 +344,16 @@ onMounted(() => {
   height: 48px;
   font-size: @size-m;
 }
-.xls{
-  padding:0 16px;
+
+.xls {
+  padding: 0 16px;
   line-height: 48px;
   height: 48px;
   font-size: @size-m;
   border-radius: 0 @radius-m @radius-m 0;
 }
-.xlf{
+
+.xlf {
   font-size: @size-l;
 }
 
@@ -364,24 +363,28 @@ onMounted(() => {
   color: @font-color-s;
 }
 
-.search-button{
- background:@pcolor;
- color:#fff;
- .btsearch{
-  vertical-align: middle;
-  cursor: pointer;
- }
+.search-button {
+  background: @pcolor;
+  color: #fff;
+
+  .btsearch {
+    vertical-align: middle;
+    cursor: pointer;
+  }
 }
-.hover{
-  &:hover{
-  opacity: 0.85;
- }
+
+.hover {
+  &:hover {
+    opacity: 0.85;
+  }
 }
-.isbutton{
+
+.isbutton {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.define{
+
+.define {
   white-space: nowrap;
 }
 </style>
