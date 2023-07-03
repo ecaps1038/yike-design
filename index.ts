@@ -64,7 +64,7 @@ const components: {
     RadioGroup,
 };
 
-  const install = (app:any) => {
+  const yikeUI = (app:any) => {
     // 全局挂载 原型函数 过组件实例调用的属性   this.$message
     for (const componentItme in components) {
         app.component(componentItme, components[componentItme])
@@ -74,11 +74,11 @@ const components: {
   }
 
 //全局引入使用
-// export default install
+// export default yikeUI
 
 //按需引入使用
 export {
-    install,//全局
+  yikeUI,//全局
     Theme,//主题
     Button,//按钮
     Message,//全局信息
